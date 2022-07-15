@@ -10,13 +10,13 @@ jobs:
         node_version: [6,8,10] # will run 3 times for 6, 8 and 10
         include:
           - os: ubuntu-latest
-            node-version: 8
+            node_version: 8
             is_ubuntu_8: "true"
         exclude: 
           - os: ubuntu-latest
             node_version: 6 
           - os: macos-latest
-            node-version: 8
+            node_version: 8
       max-parallel: 3
       fail-fast: true
     runs-on: ${{ matrix.os }}
