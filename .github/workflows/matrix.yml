@@ -4,13 +4,19 @@ on: push
 
 jobs:
   node-version:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-lates, ubuntu-latest, windows-latest]
+        node_version: [6,8,10] # will run 3 times for 6, 8 and 10
+      max-parallel: 3
+      fail-fast: true
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Log Node Version
         run: node -v
       - name: Setup Node 6
         uses: actions/setup-node@v1
         with:
-          node-version: 6
+          node-version: ${{ matrix.node_version }}
       - name: Log Node Version
         run: node -v
