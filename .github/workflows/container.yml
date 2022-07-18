@@ -1,0 +1,36 @@
+name: Container
+
+on: push
+
+jobs:
+  docker-steps:
+    runs-on: ubuntu-latest
+    container:
+      image: node:13.5.0-alpine3.10
+    steps:
+      - name: log node Version
+        run: node -v 
+      - name: Step with docker
+        uses: docker://node:node:12.14.1-alpine3.10
+        with: 
+          entrypoint: 'bin/echo'
+          args: 'Hello World'
+  node_docker:
+    runs-on: ubuntu-latest
+    services:
+      app:
+        image: alialaa17/node-api
+        ports:
+          - 3001:3000
+      mongo:
+        image: mongo
+        ports: 
+          - "27017:27017"
+    # container: 
+    #   image: node:13.5.0-alpine3.10
+      #options: --cpu 1 --host
+    steps:
+      - name: Log node Version
+        run: |
+          node -v 
+          cat etc/os-release
